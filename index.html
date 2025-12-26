@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLUX | Wear the Unknown</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+</head>
+<body>
+    <div class="grain-overlay"></div>
+
+    <!-- Loader -->
+    <div id="loader">
+        <h1 class="display-text" style="letter-spacing: 10px;">FLUX</h1>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-board">
+            <div class="search-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="search-input" placeholder="Search products...">
+                <button class="close-search-btn" onclick="toggleSearch()">ESC</button>
+            </div>
+            <div class="search-suggestions">
+                <span style="display:block; margin-bottom:10px; color:#888; font-size:0.8rem; text-transform:uppercase;">Trending Now</span>
+                <div class="suggestion-tags">
+                    <span class="tag">Oversized Hoodie</span>
+                    <span class="tag">Cargo Pants</span>
+                    <span class="tag">Graphic Tees</span>
+                    <span class="tag">Winter Collection</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="bun-button">
+            <div class="bun-line"></div>
+            <div class="bun-line"></div>
+            <div class="bun-line"></div>
+        </div>
+        <a href="index.html" class="logo">FLUX</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="index.html#about">Philosophy</a>
+            <a href="checkout.html">Checkout</a>
+        </div>
+        <div class="nav-icons">
+            <div class="search-trigger" style="cursor:pointer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <div class="cart-trigger">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <div class="cart-count">0</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <span class="close-cart" style="cursor:pointer">✕</span>
+        </div>
+        <div class="cart-items">
+            <!-- Items injected via JS -->
+        </div>
+        <div class="cart-footer">
+            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                <span>Subtotal:</span>
+                <span id="subtotal">Rs. 0</span>
+            </div>
+            <a href="checkout.html" class="cta-btn" style="display:block; text-align:center; width:100%;">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-bg" id="parallaxBg"></div>
+        <div class="hero-content">
+            <h1 class="display-text glitch" data-text="HEAVYWEIGHT COTTON">HEAVYWEIGHT<br><span style="-webkit-text-stroke: 2px #fff; color: transparent;">COTTON</span></h1>
+            <p>Lahore Based // Oversized Fits</p>
+            <a href="shop.html" class="cta-btn magnetic">SHOP THE DROP</a>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee">
+        <div class="marquee-content">
+            <span>FLUX // LAHORE STREETWEAR // OVERSIZED FITS // HEAVYWEIGHT COTTON // FLAT RATE SHIPPING // </span>
+            <span>FLUX // LAHORE STREETWEAR // OVERSIZED FITS // HEAVYWEIGHT COTTON // FLAT RATE SHIPPING // </span>
+        </div>
+    </div>
+
+    <!-- Horizontal Scroll Section (The Cold Edit) -->
+    <section class="horizontal-scroll-section">
+        <div class="sticky-wrapper">
+            <h2 class="section-title" style="margin-bottom: 4rem; z-index: 10;">
+                THE COLD EDIT <br>
+                <span style="font-size:1rem; color:var(--muted-grey); font-family:var(--font-body); letter-spacing: 0.2em;">VOL. II / SCROLL TO EXPLORE</span>
+            </h2>
+            <div class="element-wrapper" id="horizontal-grid">
+                <!-- Products Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section id="about" class="container" style="text-align:center; padding: 8rem 5%;">
+        <h2 class="section-title">WHAT REMAINS <span style="color:var(--accent-red)">RISES</span></h2>
+        <p style="max-width:600px; margin:0 auto; line-height:1.6; color:var(--muted-grey);">
+            FLUX is not just fabric; it is the state of constant change. Born in the streets of Lahore, we merge the brutalist architecture of the city with the silence of the unknown. Monochrome is our language. Quality is our religion.
+        </p>
+    </section>
+
+    <!-- Premium Footer -->
+    <footer class="premium-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h2>FLUX</h2>
+                <p>Engineered in Lahore. Built for the unknown. We create heavyweight streetwear that speaks without words.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="shop.html">All Products</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <input type="email" placeholder="Enter your email" class="newsletter-input">
+                <button class="cta-btn" style="margin-top:0; width:100%; font-size:0.8rem;" onclick="subscribeNewsletter()">Subscribe</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 FLUX. All Rights Reserved.</p>
+            <a href="https://goo.gl/maps/Lahore" target="_blank" style="border-bottom:1px solid var(--accent-red);">LOC: Lahore, PK</a>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/923101623415" class="whatsapp-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>

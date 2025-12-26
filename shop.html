@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | FLUX</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="grain-overlay"></div>
+
+    <nav>
+        <div class="bun-button">
+            <div class="bun-line"></div>
+            <div class="bun-line"></div>
+            <div class="bun-line"></div>
+        </div>
+        <a href="index.html" class="logo">FLUX</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="shop.html" style="color:var(--accent-red)">Shop</a>
+            <a href="index.html#about">Philosophy</a>
+            <a href="checkout.html">Checkout</a>
+        </div>
+        <div class="nav-icons">
+            <div class="cart-trigger">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <div class="cart-count">0</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <span class="close-cart" style="cursor:pointer">✕</span>
+        </div>
+        <div class="cart-items"></div>
+        <div class="cart-footer">
+            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                <span>Subtotal:</span>
+                <span id="subtotal">Rs. 0</span>
+            </div>
+            <a href="checkout.html" class="cta-btn" style="display:block; text-align:center; width:100%;">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <main class="container" style="margin-top: 100px;">
+        <h1 class="section-title">All Products</h1>
+        <div class="product-grid" id="product-grid">
+            <!-- Injected via JS -->
+        </div>
+    </main>
+
+    <a href="https://wa.me/923101623415" class="whatsapp-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>

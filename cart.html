@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart | FLUX</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #111;
+            --text-color: #ffffff;
+            --accent-color: #ff3b3b;
+            --border-color: #333;
+            --font-display: 'Oswald', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        /* --- 2. NAVIGATION & MOBILE BUN BUTTON --- */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            background: #0a0a0a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 2px;
+            z-index: 1001; /* Above mobile menu */
+        }
+        
+        /* Desktop Links */
+        .desktop-links { display: flex; gap: 30px; }
+        .desktop-links a {
+            color: #888; text-decoration: none; text-transform: uppercase; font-size: 0.9rem; transition: 0.3s;
+        }
+        .desktop-links a:hover { color: var(--accent-color); }
+
+        /* Bun Button (Mobile Trigger) */
+        .bun-button {
+            display: none; /* Hidden on desktop */
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            transform: translateY(-100%); /* Hidden top */
+            transition: transform 0.4s ease-in-out;
+            z-index: 1000;
+        }
+        .mobile-menu.active { transform: translateY(0); }
+        .mobile-menu a {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        /* --- 3. CART LAYOUT --- */
+        .cart-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .cart-items-section h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #111;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+        }
+        .item-left { display: flex; gap: 15px; align-items: center; }
+        .item-img { width: 60px; height: 60px; background: #333; object-fit: cover; }
+        .item-name { font-family: var(--font-display); text-transform: uppercase; font-size: 1.1rem; }
+        .item-price { color: var(--accent-color); font-weight: bold; }
+
+        .remove-btn { color: #666; cursor: pointer; font-size: 0.9rem; text-decoration: underline; }
+
+        /* Checkout Form */
+        .checkout-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            height: fit-content;
+        }
+        .form-input {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            color: white;
+            font-family: var(--font-body);
+            margin-bottom: 15px;
+        }
+        .place-order-btn {
+            width: 100%;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* --- 4. FLOATING WHATSAPP ICON --- */
+        .float-wa {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #111;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .float-wa:hover { transform: scale(1.1); }
+
+        /* --- 5. RESPONSIVE QUERIES --- */
+        @media (max-width: 768px) {
+            .desktop-links { display: none; } /* Hide desktop menu */
+            .bun-button { display: block; }   /* Show bun button */
+            
+            .cart-container {
+                grid-template-columns: 1fr; /* Stack checkout below items */
+                margin-top: 20px;
+            }
+            .cart-items-section h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" onclick="toggleMenu()">Home</a>
+        <a href="index.html#shop" onclick="toggleMenu()">Shop</a>
+        <a href="about.html" onclick="toggleMenu()">About</a>
+        <a href="#" onclick="toggleMenu()">Contact</a>
+    </div>
+
+    <nav>
+        <a href="index.html" class="logo">FLUX<span style="color:var(--accent-color)">.</span></a>
+        
+        <div class="desktop-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#shop">Shop</a>
+            <a href="about.html">About</a>
+        </div>
+
+        <div class="bun-button" onclick="toggleMenu()">
+            <i class="fas fa-bars" id="menuIcon"></i>
+        </div>
+    </nav>
+
+    <div class="cart-container">
+        
+        <div class="cart-items-section">
+            <h1>Your Bag <span id="cart-count" style="color:#666; font-size:1.5rem;">(0)</span></h1>
+            <div id="cart-rows">
+                </div>
+        </div>
+
+        <div class="checkout-card">
+            <h2 style="font-family:var(--font-display); text-transform:uppercase; margin-bottom:20px;">Checkout</h2>
+            
+            <input type="text" id="name" class="form-input" placeholder="Full Name" required>
+            <input type="tel" id="phone" class="form-input" placeholder="Phone Number (0300...)" required>
+            <input type="text" id="address" class="form-input" placeholder="Delivery Address" required>
+            
+            <select id="payment" class="form-input" style="background:#111;">
+                <option value="COD">Cash on Delivery (Flat Rate)</option>
+                <option value="Bank">Bank Transfer (HBL)</option>
+            </select>
+
+            <div style="border-top:1px solid #333; margin:20px 0; padding-top:20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; color:#ccc;">
+                    <span>Subtotal</span>
+                    <span id="subtotal">Rs. 0</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; color:#ccc;">
+                    <span>Shipping</span>
+                    <span>Rs. 250</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:bold; color:white;">
+                    <span>Total</span>
+                    <span id="total" style="color:var(--accent-color);">Rs. 250</span>
+                </div>
+            </div>
+
+            <button class="place-order-btn" onclick="sendToWhatsApp()">
+                Confirm Order <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/923101623415" class="float-wa" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // CONFIG
+        const PHONE_NUMBER = "923101623415"; // Your specific number
+        const SHIPPING = 250;
+
+        // --- MOBILE MENU TOGGLE ---
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('menuIcon');
+            menu.classList.toggle('active');
+            
+            // Toggle Icon between Bars and X
+            if (menu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        // --- CART LOGIC ---
+        let cart = JSON.parse(localStorage.getItem('fluxCart')) || [];
+
+        function renderCart() {
+            const container = document.getElementById('cart-rows');
+            const subtotalEl = document.getElementById('subtotal');
+            const totalEl = document.getElementById('total');
+            const countEl = document.getElementById('cart-count');
+
+            container.innerHTML = '';
+            let subtotal = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color:#666;">Cart is empty.</p>';
+            }
+
+            cart.forEach((item, index) => {
+                subtotal += item.price; // Simplified for demo (price * qty logic can be added)
+                container.innerHTML += `
+                    <div class="cart-item-row">
+                        <div class="item-left">
+                            <div class="item-img"></div> 
+                            <div>
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-price">Rs. ${item.price.toLocaleString()}</div>
+                            </div>
+                        </div>
+                        <div class="remove-btn" onclick="removeItem(${index})">Remove</div>
+                    </div>
+                `;
+            });
+
+            countEl.innerText = `(${cart.length})`;
+            subtotalEl.innerText = `Rs. ${subtotal.toLocaleString()}`;
+            totalEl.innerText = `Rs. ${(subtotal + SHIPPING).toLocaleString()}`;
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('fluxCart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        // --- WHATSAPP CHECKOUT ENGINE (FIXED) ---
+        function sendToWhatsApp() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const payment = document.getElementById('payment').value;
+
+            if (!name || !phone || !address) {
+                alert("Please fill in Name, Phone, and Address.");
+                return;
+            }
+
+            // Calculate Totals
+            let subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+            let total = subtotal + SHIPPING;
+
+            // Create Message Line by Line
+            let msg = `*NEW FLUX ORDER* \n`;
+            msg += `------------------ \n`;
+            msg += `*Name:* ${name} \n`;
+            msg += `*Phone:* ${phone} \n`;
+            msg += `*Address:* ${address} \n`;
+            msg += `*Payment:* ${payment} \n`;
+            msg += `------------------ \n`;
+            msg += `*ITEMS:* \n`;
+            
+            cart.forEach(item => {
+                msg += `• ${item.name} - Rs. ${item.price} \n`;
+            });
+
+            msg += `------------------ \n`;
+            msg += `*Total (inc. ship):* Rs. ${total.toLocaleString()} \n`;
+            msg += `------------------ \n`;
+            msg += `Please confirm my order.`;
+
+            // Encode properly for URL
+            const encodedMsg = encodeURIComponent(msg);
+            
+            // Open WhatsApp
+            const url = `https://wa.me/${PHONE_NUMBER}?text=${encodedMsg}`;
+            window.open(url, '_blank');
+        }
+
+        // Init
+        renderCart();
+    </script>
+    <a href="https://wa.me/923101623415" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <div class="whatsapp-pulse"></div>
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Need help? Chat with us.</span>
+</a>
+</body>
+</html>

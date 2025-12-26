@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | FLUX</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="grain-overlay"></div>
+
+    <nav>
+        <a href="index.html" class="logo">FLUX</a>
+        <a href="shop.html" style="font-size:0.9rem;">Back to Shop</a>
+    </nav>
+
+    <div class="checkout-container">
+        <h1 class="section-title">Secure Checkout</h1>
+        
+        <form id="checkout-form">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="c-name" required placeholder="e.g. Ali Khan">
+            </div>
+            
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="c-phone" required placeholder="0300 1234567">
+            </div>
+
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" id="c-city" required placeholder="Lahore">
+            </div>
+
+            <div class="form-group">
+                <label>Full Address</label>
+                <input type="text" id="c-address" required placeholder="House #, Street, Area">
+            </div>
+
+            <div class="form-group">
+                <label>Payment Method</label>
+                <div class="payment-options">
+                    <div class="payment-option active" id="pay-cod">Cash on Delivery</div>
+                    <div class="payment-option" id="pay-bank">Bank Transfer</div>
+                </div>
+                
+                <div class="bank-details">
+                    <p><strong>Account Title:</strong> FLUX</p>
+                    <p><strong>Account No:</strong> 09397902280303 (HBL)</p>
+                    <p style="margin-top:10px; font-size:0.8rem; color:var(--muted-grey);">Please send a screenshot of payment to WhatsApp after placing order.</p>
+                </div>
+            </div>
+
+            <div style="border-top:1px solid var(--glass-border); padding-top:1.5rem; margin-top:2rem;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+                    <span>Shipping</span>
+                    <span>Rs. 250</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:bold; margin-bottom:2rem;">
+                    <span>Grand Total</span>
+                    <span id="grand-total">Calculating...</span>
+                </div>
+                <button type="submit" class="cta-btn" style="width:100%; background:white; color:black; font-weight:bold;">Complete Order</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Contact Method Modal -->
+    <div id="contact-modal" class="search-overlay" style="z-index: 10000;">
+        <div class="search-board" style="padding: 2rem; text-align: center; max-width: 400px;">
+            <h3 style="margin-bottom: 1.5rem; font-family: var(--font-heading); font-size: 1.5rem;">Complete Order Via</h3>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <button id="confirm-whatsapp" class="cta-btn" style="background: #25D366; border-color: #25D366; color: white; margin-top: 0;">WhatsApp</button>
+                <button id="confirm-gmail" class="cta-btn" style="background: #DB4437; border-color: #DB4437; color: white; margin-top: 0;">Gmail</button>
+                <button id="confirm-email" class="cta-btn" style="background: white; color: black; margin-top: 0;">Other Mail App</button>
+                <button id="close-modal" style="background: transparent; border: none; color: var(--muted-grey); margin-top: 1rem; cursor: pointer;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
